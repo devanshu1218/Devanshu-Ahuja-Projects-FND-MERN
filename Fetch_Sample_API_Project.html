@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <style>
+        #insert {
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            padding: 10px;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body style="
+background-color: rgb(143, 220, 236)">
+    <center>
+        <div>
+            <button style="color:rgb(98, 95, 95);
+                background-color: rgb(247, 243, 136);
+                cursor:pointer;
+                border:2%;
+                border-radius: 50px;
+                width: 250px;
+                height: 80px;
+                font-size: 20px;
+                font-weight: bold;
+                align-items:center;
+                margin-top: 12%;
+                padding-top: 8;" onclick="get()">
+                Get Only Completed Tasks
+            </button>
+        </div>
+        <div style="font-size :15px;
+        font-family: cursive;
+        font-weight: bold;
+        font-color:rgb(97, 96, 96);" id="insert">
+        </div>
+    </center>
+    <script>
+        const get = () => {
+            var ins = document.getElementById("insert");
+            let url = "https://jsonplaceholder.typicode.com/todos";
+            fetch(url).then(
+                (res) => {
+                    return res.json();
+                }
+            )
+                .then(
+                    (res) => {
+                        const tobe = res.map(
+                            (todos) => {
+                                if (todos.completed == true) {
+                                    return `
+                                    <p>id : ${todos.id}</p>
+                                    <p>title : ${todos.title}</p>
+                                    <p>user ID : ${todos.userId}</p>
+                                    <p> status : ${todos.completed}</p>
+                                    <br>
+                                    `
+                                }
+                            }
+                        ).join(" ");
+                        ins.innerHTML = tobe;
+                    }
+                );
+        }
+    </script>
+</body>
+
+</html>
